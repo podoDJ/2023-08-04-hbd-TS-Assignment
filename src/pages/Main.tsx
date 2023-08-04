@@ -96,7 +96,7 @@ const Main: React.FC<any> = () => {
           .map((item: any, index) => (
             <ListItem key={item.id}>
               <span>
-                {index + 1}. {item.contents}. {item.id}
+                {index + 1}. {item.contents}
               </span>
               {/* // TODO: 로그인 한 user의 이메일과 일치하는 경우에만 삭제버튼 보이도록 제어 */}
               {currentEmail === item.email && (
