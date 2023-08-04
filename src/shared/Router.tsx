@@ -3,6 +3,8 @@ import AuthMain from "../pages/AuthMain";
 import Main from "../pages/Main";
 import AuthLayout from "./AuthLayout";
 import NonAuthLayout from "./NonAuthLayout";
+import LoginForm from "../components/auth/LoginForm";
+import SignupForm from "../components/auth/SignupForm";
 
 const Router = () => {
   return (

@@ -1,17 +1,42 @@
 import React from "react";
 import { Form, Input, Button, Checkbox } from "antd";
 import styled from "styled-components";
-
-const SignupForm: React.FC<any> = () => {
+import axios from "axios";
+//props로 넘겨주면 하위컴프에서 상위컴프로 상태를 바꿔줄 수 있음.
+const SignupForm: React.FC<any> = ( {setIsLogin} ) => {
   const handleSignup = async (values: any) => {
-    alert("TODO 요구사항에 맞추어 기능을 완성해주세요.");
+    // alert("TODO 요구사항에 맞추어 기능을 완성해주세요.");
+    const { email, password, confirmedPassword, agreed } = values
+    try {const response = await axios.get(
+      `http://localhost:4000/users?email=${email}`
+    ) 
+    if (response.data.length >= 1) {
+      alert("이미 존재하는 아이디입니다.");
+      return false;
+    }
+    // 회원가입 가능
+    await axios.post("http://localhost:4000/users", {
+      email: email,
+      password: password,
+    })
+    // 회원가입 완료 alert
+    alert("회원가입이 성공적으로 처리되었습니다. 로그인 페이지로 이동합니다.")
+    // 로그인페이지로 이동
+    setIsLogin(true)
+  } catch(error) {
+      alert("일시적인 오류가 발생하였습니다. 고객센터로 연락주세요.")
+      return false;
+    }
 
+    // console.log("email", email)
+
+    // if (userEmailArr.includes
     // TODO: 데이터베이스에서 email과 password 기반으로 찾아서 이미 존재하는지 확인 후, 존재하는 경우 "이미 존재하는 아이디입니다." alert
     // TODO: 네트워크 등 기타 문제인 경우, "일시적인 오류가 발생하였습니다. 고객센터로 연락주세요." alert
     // TODO: 성공 시(1), "회원가입이 성공적으로 처리되었습니다. 로그인 페이지로 이동합니다." alert
     // TODO: 성공 시(2), "로그인할 수 있도록 세팅"
   };
-
+  
   return (
     <FormWrapper onFinish={handleSignup}>
       <Form.Item
